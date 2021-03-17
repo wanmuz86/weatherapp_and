@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,13 @@ TextView tempTextView, feelsLikeTextView, pressureTextView,
                                     .getJSONArray("weather").getJSONObject(0)
                                     .getString("main");
                             feelsLikeTextView.setText(weather);
+
+                            String iconId = responseObj
+                                    .getJSONArray("weather").getJSONObject(0)
+                                    .getString("icon");
+                            String url = "https://openweathermap.org/img/w/"+iconId+".png";
+                            Glide.with(MainActivity.this)
+                                    .load(url).into(iconImageView);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
